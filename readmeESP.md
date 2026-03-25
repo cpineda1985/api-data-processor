@@ -126,4 +126,3 @@ api-challenge/
 
 Cesar Daniel Pineda  
 📧 cesardanielpineda@gmail.com  
-🔗 [Repositorio GitHub API](https://github.com/cpineda1985/api-challenge)
