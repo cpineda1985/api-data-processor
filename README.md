@@ -1,29 +1,32 @@
-# TOOLBOX API CHALLENGE  
-El proyecto consume un API externo, procesa información en formato CSV y expone endpoints REST que devuelven los datos procesados y opcionalmente filtrados.
+# API Data Processor
 
-El desarrollo fue realizado utilizando **Node.js v14.17.6**. El código está estructurado de forma modular para facilitar su extensión, testeo y mantenimiento.
+> Production-ready REST API that consumes external data sources, validates CSV files, and exposes clean, paginated endpoints. Built with Node.js.
 
----
+## What it solves
 
-## Características implementadas
+You have data coming from an external API in messy CSV format. You need a reliable, queryable interface to consume it without dealing with parsing errors, missing fields, or inconsistent formatting.
 
-### Endpoints principales
+This service handles the complexity so your applications get clean, validated data.
 
-#### GET `/files/data`
-- Devuelve un arreglo con archivos válidos procesados desde el API externo.
-- Permite filtrar por archivo usando `?fileName=`.
-- Permite incluir líneas con campos parcialmente válidos usando `?includeEmpty=true`.
-- Paginación: `?limit=` y `?offset=` (solo cuando **no** se filtra por archivo específico).
-- Si se filtra por un archivo no existente o sin líneas válidas, responde:
+## Key features
 
-```json
-{
-  "code": "SYS-ERR",
-  "message": "Not Found",
-  "details": null,
-  "status": 404
-}
+- **External API consumption** – Pulls data from public APIs, handles failures gracefully
+- **CSV validation** – Validates hex codes (32 chars) and numeric fields, filters malformed rows
+- **Flexible filtering** – Option to include partially valid rows (`includeEmpty=true`)
+- **Pagination** – `limit` and `offset` parameters for large datasets
+- **File listing** – Get available files from the source API
+- **Consistent error responses** – Standard JSON error format across all endpoints
+
+## Quick start
+
+```bash
+git clone https://github.com/cpineda1985/api-data-processor
+cd api-data-processor
+npm install
+npm start
 ```
+---
+#### Endpoints
 
 #### GET `/files/list`
 - Devuelve la lista cruda de archivos disponible desde el API externo.
@@ -50,14 +53,14 @@ El desarrollo fue realizado utilizando **Node.js v14.17.6**. El código está es
 
 ---
 
-## Tests automatizados
+## Tests 
 
-Se incluyen tests con **Mocha**, **Chai**:
+Test Included **Mocha**, **Chai**:
 
-- Validación de endpoints `/files/data` y `/files/list`.
-- Casos de éxito, filtro válido, 404 por archivo inexistente, e inclusión de líneas nulas.
+- endpoint validation `/files/data` y `/files/list`.
+- success scenario, filters, 404 error, null lines.
 
-Para ejecutarlos:
+To execute them:
 
 ```bash
 npm test
@@ -68,10 +71,9 @@ npm test
 ## Linting
 
 
-Se usa **StandardJS** como estilo de codificación. 
-Para mantener una sintaxis clara y consistente se incluyó un archivo `.eslintrc.json` para facilitar la validación del estilo y detectar errores comunes.
+Uses **StandardJS** as coding styling. 
 
-Para validarlo:
+To validate:
 
 ```bash
 npm run lint
@@ -79,7 +81,7 @@ npm run lint
 
 ---
 
-## Instalación y ejecución local
+## Install
 
 ```bash
 npm install
@@ -88,7 +90,7 @@ npm start
 
 ---
 
-## Estructura del proyecto
+## Project structure
 
 ```
 api-challenge/
@@ -114,17 +116,7 @@ api-challenge/
 
 ---
 
-## Consideraciones
-
-- Se busco que el código sea ES6+ válido para Node.js 14.x.
-- Se adiciona un swagger con ejemplos para el fácil uso/consumo del API.
-- Se utiliza ESLint con configuración StandardJS para evitar variables no usadas o mal definidas y poder limpiar el código. 
-  - El archivo `.eslintrc.json` se incluyó para explicitar la configuración utilizada:
-  - Esto garantiza que los archivos de prueba también se validen correctamente con `eslint` sin marcar como errores las funciones globales de Mocha (`describe`, `it`, etc.).
-
   ## 👤 Autor
 
 Cesar Daniel Pineda  
 📧 cesardanielpineda@gmail.com  
-🔗 [Repositorio GitHub API](https://github.com/cpineda1985/api-challenge)
-
